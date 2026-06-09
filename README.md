@@ -1,6 +1,6 @@
 # Devrehane — Electronics & Robotics E-Commerce Platform
 
-Devrehane is a production full-stack platform that combines e-commerce and educational experiences for electronics, robotics and maker communities. It is a full-stack web application with a public storefront, an admin panel, product and category management, an order and return workflow, inventory logic, and transactional email — built with a strong focus on **server-side data integrity and security**.
+Devrehane is a production Full-Stack platform that combines e-commerce and educational experiences for electronics, robotics and maker communities. It is a full-stack web application with a public storefront, an admin panel, product and category management, an order and return workflow, inventory logic, and transactional email — built with a strong focus on **server-side data integrity and security**.
 
 🌐 **Live:** https://www.devrehane.net
 
