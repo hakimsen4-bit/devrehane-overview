@@ -11,9 +11,7 @@ Devrehane is a production e-commerce platform for electronics, robotics and make
 - **Frontend:** React, Vite, TypeScript, Tailwind CSS
 - **Backend / Data:** PostgreSQL (Supabase-managed), Row Level Security, Supabase Auth, Supabase Storage, Supabase Edge Functions, SQL migrations
 - **Infrastructure / Tooling:** Vercel, Resend (transactional email), Git / GitHub
-<img width="2048" height="908" alt="egitim setleri" src="https://github.com/user-attachments/assets/ee58a707-e4b0-4444-a64b-8c958e3a5d99" />
-<img width="2048" height="969" alt="akademi" src="https://github.com/user-attachments/assets/29a49853-392b-42fd-b0fa-978e97adf635" />
-<img width="2048" height="780" alt="adminpage" src="https://github.com/user-attachments/assets/15ccdfe0-863a-4317-b60c-f0e847360e63" />
+- ## Preview:
 
 ## Main Features
 
