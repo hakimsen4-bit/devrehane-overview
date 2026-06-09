@@ -1,6 +1,6 @@
 # Devrehane — Electronics & Robotics E-Commerce Platform
 
-Devrehane is a production e-commerce platform for electronics, robotics and maker components. It is a full-stack web application with a public storefront, an admin panel, product and category management, an order and return workflow, inventory logic, and transactional email — built with a strong focus on **server-side data integrity and security**.
+Devrehane is a production full-stack platform that combines e-commerce and educational experiences for electronics, robotics and maker communities. It is a full-stack web application with a public storefront, an admin panel, product and category management, an order and return workflow, inventory logic, and transactional email — built with a strong focus on **server-side data integrity and security**.
 
 🌐 **Live:** https://www.devrehane.net
 
@@ -12,8 +12,8 @@ Devrehane is a production e-commerce platform for electronics, robotics and make
 - **Backend / Data:** PostgreSQL (Supabase-managed), Row Level Security, Supabase Auth, Supabase Storage, Supabase Edge Functions, SQL migrations
 - **Infrastructure / Tooling:** Vercel, Resend (transactional email), Git / GitHub
 - ## Preview:
-<img width="2048" height="908" alt="egitim setleri" src="https://github.com/user-attachments/assets/45deb684-fee0-4ee7-8dc3-ee9d9ee2dd09" />
 <img width="2048" height="969" alt="akademi" src="https://github.com/user-attachments/assets/49c94a78-5827-4c85-8cd6-4fad7655df11" />
+<img width="2048" height="908" alt="egitim setleri" src="https://github.com/user-attachments/assets/45deb684-fee0-4ee7-8dc3-ee9d9ee2dd09" />
 <img width="2048" height="780" alt="adminpage" src="https://github.com/user-attachments/assets/ac37937a-31ed-4ee3-8cb2-56a41f8ddf88" />
 
 ## Main Features
