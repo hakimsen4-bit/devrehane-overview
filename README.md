@@ -8,8 +8,8 @@ Devrehane is a production full-stack platform that combines e-commerce and educa
 
 ## Tech Stack
 
-- **Frontend:** React, Vite, TypeScript, Tailwind CSS
--Backend / Data:
+- **Frontend:** React, Vite, TypeScript, Tailwind CSS.,
+- Backend / Data:
 -PostgreSQL (Supabase-managed), SQL RPCs, Database Triggers, Row Level Security, Supabase Auth, Supabase Storage, Supabase Edge Functions, SQL migrations
 - **Infrastructure / Tooling:** Vercel, Resend (transactional email), Git / GitHub
 - ## Preview:
