@@ -1,118 +1,67 @@
-# Devrehane – Electronics & Robotics E-Commerce Platform
+# Devrehane — Electronics & Robotics E-Commerce Platform
 
-Devrehane is an e-commerce project for electronics, robotics and maker components.
+Devrehane is a production e-commerce platform for electronics, robotics and maker components. It is a full-stack web application with a public storefront, an admin panel, product and category management, an order and return workflow, inventory logic, and transactional email — built with a strong focus on **server-side data integrity and security**.
 
-The project is built as a practical full-stack web application with a public storefront, admin panel, product/category management, order workflow, return workflow, stock-related logic and transactional email notifications.
+🌐 **Live:** https://www.devrehane.net
 
-Live website: https://www.devrehane.net
+> This is a public **portfolio / case-study overview**. The application source code is kept in a private repository for security and business reasons; no keys or production configuration are published here.
 
 ## Tech Stack
 
-- React
-- Vite
-- TypeScript
-- Tailwind CSS
-- PostgreSQL (Supabase-managed)
-- PostgreSQL Row Level Security
-- Supabase Auth
-- Supabase Storage
-- Supabase Edge Functions
-- Resend
-- Vercel
-- Git / GitHub
+- **Frontend:** React, Vite, TypeScript, Tailwind CSS
+- **Backend / Data:** PostgreSQL (Supabase-managed), Row Level Security, Supabase Auth, Supabase Storage, Supabase Edge Functions, SQL migrations
+- **Infrastructure / Tooling:** Vercel, Resend (transactional email), Git / GitHub
+<img width="2048" height="908" alt="egitim setleri" src="https://github.com/user-attachments/assets/ee58a707-e4b0-4444-a64b-8c958e3a5d99" />
+<img width="2048" height="969" alt="akademi" src="https://github.com/user-attachments/assets/29a49853-392b-42fd-b0fa-978e97adf635" />
+<img width="2048" height="780" alt="adminpage" src="https://github.com/user-attachments/assets/15ccdfe0-863a-4317-b60c-f0e847360e63" />
 
 ## Main Features
 
-- Public e-commerce storefront
+- Public e-commerce storefront (Turkish UI, SEO-friendly routing)
 - Product and category management
-- Admin panel with role-based access
-- User authentication
+- Admin panel with role-based access control
 - Separate admin and public authentication sessions
-- Shopping cart and checkout-related structure
-- Order status workflow
-- Stock and inventory-related logic
-- Return request workflow
-- Transactional email notifications
-- Password strength and authentication UX improvements
-- Turkish user interface
-- SEO-friendly routing structure
+- Shopping cart and checkout flow
+- One-way order status workflow
+- Inventory / stock logic
+- Return request workflow (customer ↔ admin)
+- Transactional email notifications with delivery tracking
+- Password strength feedback and authentication UX hardening
+
+## Security & Data-Integrity Architecture
+
+Security is treated as a first-class, database-level concern rather than something enforced only in the frontend:
+
+- **Server-authoritative pricing & totals** — order subtotals, shipping and totals are computed and enforced inside the database. The client submits only product references and quantities; prices and totals cannot be manipulated from the client.
+- **Atomic, idempotent order & payment transitions** — stock deduction at payment runs as a single atomic transaction with deterministic, deadlock-safe locking and idempotency guarantees, so retries or double submissions cannot double-deduct inventory or duplicate customer emails.
+- **Defense in depth** — access control combines Row Level Security, privileged (`SECURITY DEFINER`) database functions as the controlled write path for sensitive operations, database triggers that enforce invariants, and CHECK constraints as a final safety net even if the API layer is bypassed.
+- **Privilege hardening** — role-sensitive fields are protected against client-side modification at the database level.
+- **Separated trust boundaries** — outward-facing operations (signature verification, outbound HTTP, transactional email) are isolated in Edge Functions; database functions never make external calls while holding locks.
+- **Email quota guard** — a multi-layer guard prevents uncontrolled automated transactional email usage.
+- **Verified, not assumed** — security-critical changes are validated with production smoke tests and adversarial tests (e.g. confirming unauthenticated or unauthorized calls are rejected).
+- **Operational hygiene** — admin/public session isolation, production security headers, and authentication messages designed to avoid user enumeration.
 
 ## Recent Production Work
 
-Recent production work focused on improving reliability, admin workflows, deployment stability, transactional email handling and security-related architecture.
-
-### Admin & Order Workflow
-
-- Hardened the admin order workflow with stricter one-way status transitions.
-- Prevented repeated status changes that could trigger duplicate customer emails.
-- Added confirmation prompts before important admin return actions that send customer-facing notifications.
-- Improved the return request workflow between the customer account area and the admin panel.
-- Kept stock restoration as a separate confirmed action to reduce accidental inventory changes.
-
-### Transactional Email System
-
-- Extended the transactional email system for order and return-related events.
-- Added customer-facing email notifications for return request status changes.
-- Added database-backed email send tracking for visibility and debugging.
-- Added a quota guard for transactional email sending to prevent uncontrolled automated email usage.
-- Deployed the updated `send-order-email` Supabase Edge Function.
-
-### Backend & Database Architecture
-
-- Added secure RPC-based return request handling instead of broad client-side order updates.
-- Improved Row Level Security related workflows.
-- Added database-side logic for email quota tracking and transactional email safeguards.
-- Updated production database schema through SQL migrations.
-- Used PostgreSQL functions for backend-side workflow control where direct client updates would be less secure.
-
-### Authentication & Security Improvements
-
-- Separated admin and public authentication sessions.
-- Improved password change functionality in the user profile.
-- Added password policy and password strength feedback.
-- Improved authentication messages to avoid unnecessary user enumeration.
-- Added production security headers through Vercel configuration.
-
-### Deployment & Routing Fixes
-
-- Synced the current production project state into the main branch.
-- Resolved Vercel production deployment blocking related to Git author and project access mismatch.
-- Added SPA rewrites for direct React route access in production.
-- Fixed Vite production asset paths for deep routes such as the admin login page.
-- Improved production stability for both public storefront and admin panel routes.
-
-## Security & Architecture Notes
-
-- PostgreSQL Row Level Security is used for access control.
-- Admin functionality is separated from the public user flow.
-- Authentication flows were designed with security and user experience in mind.
-- Sensitive keys and production configuration are not stored in this public repository.
-- The source code repository is private for security and business reasons.
-- Security-related improvements are continuously reviewed and improved as the project evolves.
-- The project architecture focuses on maintainability, clear workflows and scalable feature development.
+- Migrated order creation and payment to server-side database RPCs (server-computed totals, atomic and idempotent stock handling).
+- Hardened the admin order workflow with strict one-way status transitions and confirmation prompts before customer-facing actions.
+- Extended the transactional email system for order and return events, with database-backed send tracking and a sending quota guard.
+- Replaced broad client-side order updates with secure RPC-based return handling.
+- Strengthened authentication: separated admin/public sessions, password policy and strength feedback, anti-enumeration messages.
+- Stabilized production deployment and routing (SPA rewrites, asset paths for deep routes, security headers).
 
 ## Development Workflow
 
-The project is developed with Git-based version control and reviewed before deployment.
+Developed with Git-based version control and reviewed before each deployment. AI-assisted tools (ChatGPT, Claude, Gemini) are used for code analysis, debugging, documentation and research support; final architecture decisions, integration and testing are reviewed and validated manually.
 
-AI-assisted development tools such as ChatGPT, Claude and Gemini are used for code analysis, debugging, documentation research and implementation support. Final integration, testing, architectural decisions and project validation are manually reviewed.
+## Roadmap (planned, not yet in production)
 
-## Planned Extensions / Roadmap
-
-- **IoT Interfaces:** Planned implementation of interfaces for real-time data visualization of sensor-based robotics prototypes.
-
-- **AI-Assisted Subtractive Inventory System:** Planned development of a system where users can enter existing components or resources. The system would compare these resources with target project bills of materials (BOM), identify missing parts and generate optimized shopping lists or carts.
-
-- **Project-Based Shopping Experience:** Users could select a target project, such as an Arduino robot, sensor prototype or electronics kit. The platform would calculate which components are already available to the user and which components still need to be purchased.
-
-- **Cross-Domain Scalability:** The same logic could be adapted beyond electronics and robotics, for example to recipes, DIY projects or learning kits. The general concept is: target project requirements minus available user resources equals an optimized shopping list.
-
-- **Sustainable Software Architecture:** The focus is on building an extendable architecture instead of a short-term prototype.
-
-> These features are planned extensions and are not part of the current production version yet.
+- **IoT interfaces** — real-time data visualization for sensor-based robotics prototypes.
+- **AI-assisted subtractive inventory** — users enter components they already own; the system compares them against a target project's bill of materials (BOM), identifies missing parts, and generates an optimized shopping list/cart.
+- **Project-based shopping** — pick a target build (e.g. an Arduino robot or sensor prototype); the platform computes what is already available vs. what still needs to be purchased.
+- **Cross-domain scalability** — the same "target requirements − available resources = optimized list" logic generalizes beyond electronics (recipes, DIY projects, learning kits).
+- **Sustainable architecture** — built to extend, not as a throwaway prototype.
 
 ## Source Code
 
-The main source code is kept in a private repository.
-
-This public repository is used as a portfolio overview and case study for the Devrehane project.
+The main application lives in a private repository. This public repository serves as a portfolio overview and case study for the Devrehane project.
